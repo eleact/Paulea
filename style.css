@@ -1,0 +1,19 @@
+:root{--ink:#13281f;--mist:#edf3ee;--leaf:#3f8f5b;--paper:#fbfdfb;--line:#cfdcd3}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 Figtree,system-ui,sans-serif}
+h1,h2,.cd b{font-family:"Young Serif",Georgia,serif;font-weight:400}h1{font-size:2rem;margin:2rem 0 1rem}h2{font-size:1.4rem}
+nav{display:flex;gap:1.2rem;flex-wrap:wrap;padding:1rem 5vw;border-bottom:1px solid var(--line)}
+nav a{color:var(--ink);text-decoration:none;border-bottom:2px solid transparent}nav a.on{border-color:var(--leaf)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--leaf);outline-offset:2px}
+main{max-width:960px;margin:0 auto;padding:2rem 5vw 3rem}footer{text-align:center;padding:2rem}
+.hero{background:var(--ink);color:var(--mist);border-radius:16px;padding:3rem 1rem;text-align:center}
+.cd{display:flex;justify-content:center;gap:clamp(.8rem,4vw,2.5rem);margin:1rem 0}.cd div{display:flex;flex-direction:column}
+.cd b{font-size:clamp(2.4rem,10vw,5.5rem);line-height:1;color:#fff}.cd i{font-style:normal;opacity:.7}
+.dates{list-style:none;padding:0}.dates li{display:grid;grid-template-columns:11rem 1fr auto;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line)}.dates em{color:var(--leaf);font-style:normal}
+@media(max-width:600px){.dates li{grid-template-columns:1fr}}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem}figure{margin:0}.grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;cursor:pointer}figcaption{font-size:.9rem}
+dialog{border:0;border-radius:10px;padding:1rem;text-align:center}dialog img{max-width:85vw;max-height:75vh}dialog::backdrop{background:#13281fcc}
+#map{height:60vh;min-height:380px;border-radius:10px;border:1px solid var(--line)}.hint{opacity:.7;font-size:.95rem}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}.ls{list-style:none;padding:0}.ls li{padding:.4rem 0;border-bottom:1px solid var(--line)}.empty{opacity:.6}
+form{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}input,textarea,select{font:inherit;padding:.6rem;border:1px solid var(--line);border-radius:8px;flex:1;min-width:0}textarea{flex-basis:100%}
+button{font:inherit;background:var(--leaf);color:#fff;border:0;border-radius:8px;padding:.6rem 1.1rem;cursor:pointer}
+section+section{margin-top:2rem}blockquote{margin:1rem 0;padding-left:1rem;border-left:3px solid var(--leaf)}cite{opacity:.7}.lock{font-weight:600}
