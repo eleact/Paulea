@@ -1,1 +1,156 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nos dates</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Young+Serif&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body data-p="index"><nav id="nav" aria-label="Pages"></nav><main><header class="hero"><p id="lab"></p><div id="cd" class="cd"></div><p id="tog"></p></header><h1>Nos dates</h1><ul id="dates" class="dates"></ul></main><footer>💚</footer><script src="config.js"></script><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nous deux</title>
+<meta name="theme-color" content="#1a2333">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+<style>
+:root{--mist:#dbe4ec;--navy:#1a2333;--ink:#0b1019;--pale:#edf2f6;--rule:#9db1c4;--slate:#536477;--cobalt:#2f54e0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mist);color:var(--ink);font:400 16px/1.45 Geist,system-ui,-apple-system,"Segoe UI",sans-serif}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:
+ repeating-radial-gradient(circle at 88% 12%,transparent 0 150px,rgba(157,177,196,.55) 150px 151px),
+ repeating-radial-gradient(circle at 6% 92%,transparent 0 190px,rgba(157,177,196,.45) 190px 191px)}
+main{padding:0 clamp(14px,2.5vw,40px) 40px 260px;min-height:100vh}
+#err{position:fixed;z-index:50;right:12px;bottom:12px;max-width:80vw;background:#b3261e;color:#fff;padding:10px 14px;border-radius:10px;font-size:.85rem}
+.app-sidebar{position:fixed;z-index:30;left:0;top:0;bottom:0;width:232px;padding:26px 16px;background:var(--navy);color:#fff;display:flex;flex-direction:column;gap:8px;box-shadow:8px 0 30px -24px rgba(0,0,0,.45)}
+.brand{font-size:1.15rem;font-weight:600;letter-spacing:-.04em;margin:0 8px 26px}
+.app-sidebar button{font:inherit;text-align:left;color:#dbe4ec;background:transparent;border:0;border-radius:10px;padding:12px 14px;cursor:pointer}
+.app-sidebar button:hover,.app-sidebar button.active{background:#34445d;color:#fff}
+.side-note{margin-top:auto;color:#b9c6d4;font-size:.75rem;padding:8px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+.navy button:focus-visible{outline-color:#fff}
+.slide{position:relative;width:100%;margin:16px auto;border-radius:22px;padding:34px;box-shadow:0 30px 60px -30px rgba(26,35,51,.45)}
+.slide::before{content:"";position:absolute;inset:12px;pointer-events:none;opacity:.4;background:
+ linear-gradient(currentColor,currentColor) 0 0/14px 1px no-repeat,linear-gradient(currentColor,currentColor) 0 0/1px 14px no-repeat,
+ linear-gradient(currentColor,currentColor) 100% 0/14px 1px no-repeat,linear-gradient(currentColor,currentColor) 100% 0/1px 14px no-repeat,
+ linear-gradient(currentColor,currentColor) 0 100%/14px 1px no-repeat,linear-gradient(currentColor,currentColor) 0 100%/1px 14px no-repeat,
+ linear-gradient(currentColor,currentColor) 100% 100%/14px 1px no-repeat,linear-gradient(currentColor,currentColor) 100% 100%/1px 14px no-repeat}
+.white{background:#fff}.pale{background:var(--pale)}.navy{background:var(--navy);color:#fff}
+h1,h2{font-weight:500;letter-spacing:-.045em;line-height:.95;margin:0}
+h1{font-size:clamp(3rem,10vw,7rem);margin:26px 0 28px}
+h2{font-size:clamp(2rem,5vw,3.3rem);margin-bottom:22px}
+.hero h1 span{display:block;animation:streak .9s cubic-bezier(.2,.7,.2,1) both}
+.hero h1 span:nth-child(2){margin-left:7%;animation-delay:.12s}
+@keyframes streak{from{opacity:0;transform:translateX(-80px) skewX(-10deg)}}
+.count{margin:0 0 6px;font-size:clamp(1rem,2.4vw,1.35rem);letter-spacing:-.02em;color:#b9c6d4}.count.sub{font-size:.95rem;margin:0;opacity:.8}
+.note{color:var(--slate);margin:0 0 14px}.navy .note{color:#b9c6d4}
+.evlist{display:flex;flex-direction:column;gap:8px}
+.ev{display:grid;grid-template-columns:11rem 1fr auto;gap:6px 16px;align-items:center;background:#fff;border:1px solid var(--mist);border-radius:14px;padding:12px 16px}
+.ev.past{opacity:.55}.evd{font-size:.88rem;color:var(--slate)}.evn{font-weight:500;font-size:1.05rem;letter-spacing:-.02em}
+.evtype{font-size:.72rem;padding:2px 10px;border-radius:999px;color:#fff;background:var(--cobalt)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+figure{margin:0}.grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;cursor:pointer}figcaption{font-size:.85rem;color:var(--slate);margin-top:4px}
+#map{height:62vh;min-height:380px;border-radius:14px;border:1px solid var(--mist)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px}
+.ls{list-style:none;padding:0;margin:0 0 14px}.ls li{padding:8px 0;border-bottom:1px solid var(--rule)}.empty{color:var(--slate)}
+h3{margin:0 0 10px;font-weight:500;font-size:1.3rem;letter-spacing:-.03em}
+form{display:flex;gap:8px;flex-wrap:wrap}
+input,textarea,select{font:inherit;font-size:.95rem;padding:9px 11px;border:1px solid var(--rule);border-radius:10px;background:var(--pale);color:var(--ink);flex:1;min-width:0}textarea{flex-basis:100%;resize:vertical;line-height:1.45}
+.btn{font:inherit;font-size:.88rem;padding:8px 16px;border:1px solid currentColor;background:transparent;color:inherit;border-radius:999px;cursor:pointer}
+button.go{background:var(--navy);color:#fff;border:0;border-radius:999px;padding:9px 18px;font:inherit;cursor:pointer}.navy button.go{background:#fff;color:var(--navy)}
+blockquote{margin:12px 0;padding-left:14px;border-left:3px solid var(--cobalt)}cite{color:var(--slate)}
+dialog{border:0;border-radius:20px;padding:22px;text-align:center;background:#fff}dialog img{max-width:85vw;max-height:72vh;border-radius:10px}dialog::backdrop{background:rgba(11,16,25,.55)}
+@media(max-width:900px){main{padding:76px 12px 32px}.app-sidebar{right:0;bottom:auto;width:auto;height:62px;padding:7px 8px;flex-direction:row;align-items:center;overflow-x:auto}.brand{margin:0 8px;white-space:nowrap}.app-sidebar button{white-space:nowrap;padding:9px 12px}.side-note{display:none}}
+@media(max-width:640px){.slide{padding:22px 14px;border-radius:18px}.ev{grid-template-columns:1fr auto}.ev .evd{grid-column:1/-1}}
+@media(prefers-reduced-motion:reduce){.hero h1 span{animation:none}}
+</style>
+</head>
+<body>
+<div id="err" hidden></div>
+<aside class="app-sidebar" aria-label="Navigation">
+  <div class="brand">Nous deux</div>
+  <button type="button" class="side-tab active" data-tab="dates">▦ Dates</button>
+  <button type="button" class="side-tab" data-tab="album">▤ Album</button>
+  <button type="button" class="side-tab" data-tab="carte">◎ Carte</button>
+  <button type="button" class="side-tab" data-tab="listes">☰ Listes</button>
+  <button type="button" class="side-tab" data-tab="capsules">✉ Capsules</button>
+  <div class="side-note">Notre histoire 💚</div>
+</aside>
+<main>
+  <div id="dates" class="tab-panel active">
+    <section class="slide navy hero"><h1><span id="n1"></span><span id="n2"></span></h1><p class="count" id="count"></p><p class="count sub" id="count2"></p></section>
+    <section class="slide pale"><h2>Nos dates</h2><div class="evlist" id="dl"></div></section>
+  </div>
+  <div id="album" class="tab-panel"><section class="slide white"><h2>Album</h2><div class="grid" id="g"></div></section></div>
+  <div id="carte" class="tab-panel"><section class="slide white"><h2>Notre carte</h2><p class="note" id="mapmsg">Les pays où on est allés ensemble sont en vert. Nos photos préférées sont sur la carte.</p><div id="map"></div></section></div>
+  <div id="listes" class="tab-panel"><section class="slide pale"><h2>Listes partagées</h2><p class="note mode"></p>
+    <div class="two">
+      <div><h3>Films</h3><ul class="ls" id="films"></ul><form data-c="films"><input required placeholder="Ajouter un film" aria-label="Film"><button class="go">Ajouter</button></form><p class="note">Coche ceux qu'on a vus ensemble.</p></div>
+      <div><h3>Musiques</h3><ul class="ls" id="musiques"></ul><form data-c="musiques"><input required placeholder="Titre et artiste" aria-label="Musique"><button class="go">Ajouter</button></form><p class="note">Coche celles qu'on a écoutées ensemble.</p></div>
+    </div></section></div>
+  <div id="capsules" class="tab-panel"><p class="note mode" style="margin:16px 0 0"></p><div id="caps"></div></div>
+</main>
+<dialog id="lb"><img alt=""><p></p></dialog>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+/* ===== À MODIFIER : tout le contenu du site est ici ===== */
+const C={
+ couple:["Eléa","Lui"],                                   // remplace "Lui" par son prénom
+ start:"2025-11-16",
+ retro:{date:"2026-12-20",label:"On se revoit dans"},     // mets la vraie date
+ dates:[{d:"2025-11-16",t:"Le début"},{d:"2026-10-02",t:"Mont-Tremblant"},{d:"2026-11-16",t:"Nos 1 an"},{d:"2027-11-16",t:"Nos 2 ans"}],
+ visited:["FRA","CAN"],                                   // codes pays à 3 lettres
+ photos:[ /* {src:"photos/bordeaux.jpg",t:"Bordeaux",fav:true,lat:44.84,lng:-0.58}, */ ],
+ unlock:{"1an":"2026-11-16","2ans":"2027-11-16"},
+ firebase:null                                            // config Firebase pour partager (voir README)
+};
+/* ======================================================== */
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fd=d=>new Date(d).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
+window.onerror=m=>{const e=$("#err");e.hidden=false;e.textContent="Erreur : "+m};
+window.onunhandledrejection=e=>window.onerror(e.reason&&e.reason.message||e.reason);
+let db=null;try{if(C.firebase&&window.firebase){firebase.initializeApp(C.firebase);db=firebase.firestore()}}catch(e){window.onerror(e.message)}
+$$(".mode").forEach(e=>e.textContent=db?"":"Mode local : ce qui est écrit ici n'est visible que sur cet appareil tant que Firebase n'est pas branché (voir README).");
+const ls=c=>JSON.parse(localStorage.getItem(c)||"[]");
+const store={
+ async list(c){if(db){const s=await db.collection(c).orderBy("ts").get();return s.docs.map(d=>({id:d.id,...d.data()}))}return ls(c)},
+ async add(c,o){o.ts=Date.now();if(db){await db.collection(c).add(o)}else{o.id=String(o.ts);const a=ls(c);a.push(o);localStorage.setItem(c,JSON.stringify(a))}},
+ async set(c,id,o){if(db){await db.collection(c).doc(id).update(o)}else{const a=ls(c);Object.assign(a.find(x=>x.id==id),o);localStorage.setItem(c,JSON.stringify(a))}}
+};
+let map;
+function initMap(){
+ if(map)return setTimeout(()=>map.invalidateSize(),50);
+ if(!window.L){$("#mapmsg").textContent="Carte indisponible : vérifie ta connexion.";return}
+ map=L.map("map",{worldCopyJump:true}).setView([40,-30],2);
+ L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap © CARTO"}).addTo(map);
+ fetch("https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json").then(r=>r.json()).then(g=>L.geoJSON(g,{style:f=>C.visited.includes(f.id)?{color:"#2f54e0",weight:1.5,fillColor:"#2f54e0",fillOpacity:.35}:{weight:0,fillOpacity:0}}).addTo(map)).catch(()=>$("#mapmsg").textContent="Impossible de charger les pays : vérifie ta connexion.");
+ C.photos.filter(p=>p.fav&&p.lat!=null).forEach(p=>L.marker([p.lat,p.lng]).addTo(map).bindPopup(`<img src="${esc(p.src)}" width="180" alt=""><br>${esc(p.t)}`));
+ setTimeout(()=>map.invalidateSize(),50);
+}
+const TABS=["dates","album","carte","listes","capsules"];
+function show(id){$$(".tab-panel").forEach(p=>p.classList.toggle("active",p.id==id));$$(".side-tab").forEach(b=>b.classList.toggle("active",b.dataset.tab==id));if(id=="carte")initMap();history.replaceState(null,"","#"+id);scrollTo(0,0)}
+$$(".side-tab").forEach(b=>b.onclick=()=>show(b.dataset.tab));
+$("#n1").textContent=C.couple[0];$("#n2").textContent="& "+C.couple[1];
+const T=new Date(C.retro.date+"T00:00:00");
+function tick(){const ms=Math.max(0,T-Date.now()),p=n=>String(n).padStart(2,"0");
+ $("#count").textContent=C.retro.label+" "+Math.floor(ms/864e5)+" j "+p(Math.floor(ms/36e5)%24)+" h "+p(Math.floor(ms/6e4)%60)+" min "+p(Math.floor(ms/1e3)%60)+" s";
+ $("#count2").textContent=Math.floor((Date.now()-new Date(C.start))/864e5)+" jours depuis le début"}
+tick();setInterval(tick,1000);
+$("#dl").innerHTML=[...C.dates].sort((a,b)=>a.d>b.d?1:-1).map(x=>{const n=Math.round((new Date(x.d)-Date.now())/864e5);return `<div class="ev${n<0?" past":""}"><span class="evd">${fd(x.d)}</span><span class="evn">${esc(x.t)}</span><span class="evtype">${n>0?"dans "+n+" j":n==0?"aujourd'hui":"il y a "+(-n)+" j"}</span></div>`}).join("");
+$("#g").innerHTML=C.photos.map((p,i)=>`<figure><img loading="lazy" src="${esc(p.src)}" alt="${esc(p.t)}" data-i="${i}"><figcaption>${esc(p.t)}</figcaption></figure>`).join("")||'<p class="note">Aucune photo pour l\'instant. Ajoute tes images dans photos/ puis liste-les dans « photos » en haut du fichier.</p>';
+$("#g").onclick=e=>{const i=e.target.dataset.i;if(i==null)return;$("#lb img").src=C.photos[i].src;$("#lb p").textContent=C.photos[i].t;$("#lb").showModal()};$("#lb").onclick=()=>$("#lb").close();
+async function lists(c){const a=await store.list(c);$("#"+c).innerHTML=a.map(x=>`<li><label><input type="checkbox" style="flex:none" data-c="${c}" data-id="${x.id}"${x.done?" checked":""}> ${esc(x.title)}</label></li>`).join("")||'<li class="empty">Rien pour l\'instant. Ajoute le premier.</li>'}
+async function caps(){
+ const all=await store.list("capsules");
+ $("#caps").innerHTML=Object.entries(C.unlock).map(([k,d])=>{const u=new Date(d+"T00:00:00"),open=Date.now()>=u,ms=all.filter(x=>x.cap==k);
+  const body=open?(ms.map(x=>`<blockquote><p>${esc(x.text).replace(/\n/g,"<br>")}</p><cite>${esc(x.who)}</cite></blockquote>`).join("")||'<p class="note">Aucun message déposé.</p>'):`<p class="note">Fermée jusqu'au ${fd(u)}. ${ms.length} message(s) déposé(s), cachés jusqu'au jour J.</p>`;
+  return `<section class="slide ${open?"white":"navy"}"><h2>${k=="1an"?"Nos 1 an":"Nos 2 ans"}</h2>${body}<form data-k="${k}"><select aria-label="Auteur">${C.couple.map(n=>`<option>${esc(n)}</option>`).join("")}</select><textarea required rows="6" placeholder="Écris ton message ici, il sera lu le jour J"></textarea><button class="go">Déposer dans la capsule</button></form></section>`}).join("")}
+document.addEventListener("submit",async e=>{e.preventDefault();const f=e.target;
+ if(f.dataset.c){const i=f.querySelector("input");await store.add(f.dataset.c,{title:i.value,done:false});i.value="";lists(f.dataset.c)}
+ if(f.dataset.k){await store.add("capsules",{cap:f.dataset.k,who:f.querySelector("select").value,text:f.querySelector("textarea").value});caps()}});
+document.addEventListener("change",async e=>{const t=e.target;if(t.dataset.id)await store.set(t.dataset.c,t.dataset.id,{done:t.checked})});
+lists("films");lists("musiques");caps();
+show(TABS.includes(location.hash.slice(1))?location.hash.slice(1):"dates");
+</script>
+</body>
+</html>
